@@ -7,11 +7,11 @@ CSVParser::~CSVParser() {
     csv_file.close();
 }
 
-int CSVParser::rows() {
+int CSVParser::rows() const {
     return rows_;
 } 
 
-int CSVParser::cols() {
+int CSVParser::cols() const {
     return cols_;
 }
 
@@ -28,9 +28,10 @@ CSVParserStats CSVParser::getStats() {
     return stats;
 }
 
-std::string CSVParser::readLine(int lineNumber) {
+std::string CSVParser::readLine(const int lineNumber) {
 
     try {
+        std::string currentLine {};
         csv_file.clear();
         csv_file.seekg(0, std::ios::beg);
         for (int i{0}; i < lineNumber ; i++) { 
@@ -52,6 +53,7 @@ int CSVParser::getNoOfRows() {
    int lines{0};
  
     try {
+        std::string currentLine {};
         csv_file.clear();
         csv_file.seekg(0, std::ios::beg);
         while(!csv_file.eof()) {

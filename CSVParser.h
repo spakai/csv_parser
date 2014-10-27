@@ -17,16 +17,15 @@ class CSVParser {
         ~CSVParser();
         void load(const std::string& file);
         CSVParserStats getStats() ;
-        std::string readLine(int lineNumber);
+        std::string readLine(const int lineNumber);
         int getNoOfRows();
         std::string getValue(int row, int col);
         int getNoOfCols();
-        int cols();
-        int rows();
+        int cols() const;
+        int rows() const;
 
     private:
         std::ifstream csv_file; 
-        std::string currentLine;
         int cols_;
         int rows_;
 };
