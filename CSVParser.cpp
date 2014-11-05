@@ -65,16 +65,8 @@ int CSVParser::getNoOfRows() {
 
 int CSVParser::getNoOfCols() {
     std::string rowstr = readLine(1);
-    int cols{1};
-    
-    for (auto it = rowstr.begin(); it < rowstr.end(); ++it) {
-        if ((*it) == ',') {
-            ++cols;
-        } 
-    }
-
-    return cols;
-
+    Tokenizer tok(rowstr);
+    return tok.size();
 }
 
 std::string CSVParser::getValue(int row, int col) {
