@@ -1,8 +1,8 @@
 #include "Tokenizer.h"
 
-Tokenizer::Tokenizer(string& row) {
+Tokenizer::Tokenizer(const string& csv) {
     regex re("[,]+");
-    sregex_token_iterator it(row.begin(), row.end(), re, -1);
+    sregex_token_iterator it(csv.begin(), csv.end(), re, -1);
     copy(it,sregex_token_iterator(), back_inserter(tokens)); 
 }
 
@@ -13,4 +13,8 @@ string& Tokenizer::operator[](unsigned int i) {
     }
 
     return tokens.at(i);
+}
+
+unsigned int Tokenizer::size() const {
+    return tokens.size();
 }

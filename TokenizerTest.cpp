@@ -20,3 +20,9 @@ TEST(AToken, GetInvalidColumnofARow) {
     Tokenizer tok(s);
     ASSERT_THROW(tok[100], std::out_of_range);
 }
+
+TEST(AToken, NumberOfTokens) {
+    std::string s{"A,B,C"};
+    Tokenizer tok(s);
+    ASSERT_THAT(tok.size(), Eq(3));
+}

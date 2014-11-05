@@ -13,13 +13,6 @@ class ACSVParser: public Test {
     }
 };
 
-TEST_F(ACSVParser, OpenAValidFile) {
-    CSVParserStats stats;
-    stats = csv_parser.getStats();
-
-    ASSERT_THAT(stats.isFileOpen,Eq(true));
-}
-
 TEST_F(ACSVParser, GetNumberOfRecords) {
     
     ASSERT_THAT(csv_parser.rows(), Eq(5));

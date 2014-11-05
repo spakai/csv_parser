@@ -1,8 +1,6 @@
 #include "CSVParser.h"
 #include "Tokenizer.h"
 
-CSVParser::CSVParser() { }
-
 CSVParser::~CSVParser() {
     csv_file.clear();
     csv_file.close();
@@ -21,12 +19,6 @@ void CSVParser::load(const std::string& filename) {
     csv_file.open(filename);
     cols_ = getNoOfCols();
     rows_ = getNoOfRows();
-}
-
-CSVParserStats CSVParser::getStats() {
-    CSVParserStats stats;
-    stats.isFileOpen = csv_file.is_open();
-    return stats;
 }
 
 std::string CSVParser::readLine(const int lineNumber) {
