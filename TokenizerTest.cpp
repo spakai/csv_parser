@@ -14,3 +14,9 @@ TEST(AToken, GetLastColumnofARow) {
     Tokenizer tok(s);
     ASSERT_THAT(tok[2], Eq("C"));
 }
+
+TEST(AToken, GetInvalidColumnofARow) {
+    std::string s{"A,B,C"};
+    Tokenizer tok(s);
+    ASSERT_THROW(tok[100], std::out_of_range);
+}

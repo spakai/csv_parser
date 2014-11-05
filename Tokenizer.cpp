@@ -6,6 +6,11 @@ Tokenizer::Tokenizer(string& row) {
     copy(it,sregex_token_iterator(), back_inserter(tokens)); 
 }
 
-string& Tokenizer::operator[](int i) {
+string& Tokenizer::operator[](unsigned int i) {
+
+    if ( i > tokens.size() ) { 
+        throw std::out_of_range("index out of range");
+    }
+
     return tokens.at(i);
 }

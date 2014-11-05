@@ -13,7 +13,7 @@ class Tokenizer {
     public:
         Tokenizer(string& row);
         ~Tokenizer() {};
-        string& operator[] (int i);
+        string& operator[] (unsigned int i);
 
     private:
         vector<std::string> tokens;

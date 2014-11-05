@@ -56,7 +56,7 @@ TEST_F(ACSVParser, ReadAnInvalidLine) {
 
 TEST_F(ACSVParser, GetValueOfLastColumn) {
     int row{3};
-    int col{5};
+    int col{4};
 
     std::string value = csv_parser.getValue(row, col);
     ASSERT_THAT(value, Eq("P"));
@@ -67,19 +67,12 @@ TEST_F(ACSVParser, GetValueOfFirstColumn) {
     int col{1};
 
     std::string value = csv_parser.getValue(row, col);
-    ASSERT_THAT(value, Eq("12"));
+    ASSERT_THAT(value, Eq("DF"));
 }
 
 TEST_F(ACSVParser, GetValueOfInvalidColumn) {
     int row{3};
     int col{20};
-
-    ASSERT_THROW(csv_parser.getValue(row, col), std::out_of_range);
-}
-
-TEST_F(ACSVParser, GetValueOfColumn0) {
-    int row{3};
-    int col{0};
 
     ASSERT_THROW(csv_parser.getValue(row, col), std::out_of_range);
 }

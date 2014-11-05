@@ -1,4 +1,5 @@
 #include "CSVParser.h"
+#include "Tokenizer.h"
 
 CSVParser::CSVParser() { }
 
@@ -86,34 +87,6 @@ int CSVParser::getNoOfCols() {
 
 std::string CSVParser::getValue(int row, int col) {
     std::string rowstr = readLine(row);
-    std::string colstr;
-    int count{0};
-
-    if (col == cols_) {
-        for(std::string::reverse_iterator rit = rowstr.rbegin();; ++rit) {
-            if((*rit) == ',') break;
-            colstr+= *rit;
-        }
-    } else {
-        std::string::iterator end = rowstr.end();
-
-        for (std::string::iterator it = rowstr.begin();; ++it)  {
-
-            if (it == end || col == 0) 
-                throw std::out_of_range("index out of range");
-
-            if ((*it) == ',')  {
-                if ( ++count == col)  {
-                    break;
-                } else {
-                    continue;
-                }
-            }
-
-        colstr += *it;
-        }
-
-    }
-
-    return colstr;
+    Tokenizer tok(rowstr);
+    return tok[col];
 }
