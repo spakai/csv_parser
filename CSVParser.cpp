@@ -14,28 +14,28 @@ int CSVParser::cols() const {
     return cols_;
 }
 
-void CSVParser::load(const std::string& filename) {
-    csv_file.exceptions ( std::ifstream::failbit | std::ifstream::badbit ); 
+void CSVParser::load(const string& filename) {
+    csv_file.exceptions ( ifstream::failbit | ifstream::badbit ); 
     csv_file.open(filename);
     cols_ = getNoOfCols();
     rows_ = getNoOfRows();
 }
 
-std::string CSVParser::readLine(const int lineNumber) {
+string CSVParser::readLine(const int lineNumber) {
 
     try {
-        std::string currentLine;
+        string currentLine;
         csv_file.clear();
-        csv_file.seekg(0, std::ios::beg);
+        csv_file.seekg(0, ios::beg);
         for (int i{0}; i < lineNumber ; i++) { 
-            std::getline(csv_file, currentLine);
+            getline(csv_file, currentLine);
         }
 
         return currentLine;
 
     } catch (...) {
         if (csv_file.eof()) {
-            throw std::out_of_range("index out of range");
+            throw out_of_range("index out of range");
         } else {
             throw;
         }
@@ -46,11 +46,11 @@ int CSVParser::getNoOfRows() {
    int lines{0};
  
     try {
-        std::string currentLine;
+        string currentLine;
         csv_file.clear();
-        csv_file.seekg(0, std::ios::beg);
+        csv_file.seekg(0, ios::beg);
         while(!csv_file.eof()) {
-            std::getline(csv_file, currentLine);
+            getline(csv_file, currentLine);
             ++lines;
         } 
     } catch (...) {
@@ -64,13 +64,13 @@ int CSVParser::getNoOfRows() {
 }
 
 int CSVParser::getNoOfCols() {
-    std::string rowstr = readLine(1);
+    string rowstr = readLine(1);
     Tokenizer tok(rowstr);
     return tok.size();
 }
 
-std::string CSVParser::getValue(int row, int col) {
-    std::string rowstr = readLine(row);
+string CSVParser::getValue(int row, int col) {
+    string rowstr = readLine(row);
     Tokenizer tok(rowstr);
     return tok[col];
 }
