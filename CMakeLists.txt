@@ -8,10 +8,12 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(sources 
    main.cpp
-   CSVParser.cpp)
+   CSVParser.cpp
+   Tokenizer.cpp)
 
 set(test_sources
-   CSVParserTest.cpp)
+   CSVParserTest.cpp
+   TokenizerTest.cpp)
 
 
 add_executable(test ${test_sources} ${sources})
