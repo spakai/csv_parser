@@ -7,12 +7,10 @@ Tokenizer::Tokenizer(const string& csv) {
     copy(it,sregex_token_iterator(), back_inserter(tokens)); 
 #else
     istringstream ss(csv);
-    while (ss.good) {
+    while (!ss.eof()) {
         std::string str;
-        while(getline(ss, str, ',') {
-            tokens.push_back(str); 
-        }
-
+        getline(ss, str,',');
+        tokens.push_back(str); 
     }
 #endif
 }
