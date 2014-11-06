@@ -16,11 +16,6 @@ Tokenizer::Tokenizer(const string& csv) {
 }
 
 string& Tokenizer::operator[](unsigned int i) {
-
-    if ( i > tokens.size() ) { 
-        throw std::out_of_range("index out of range");
-    }
-
     return tokens.at(i);
 }
 
