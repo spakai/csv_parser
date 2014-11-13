@@ -8,7 +8,7 @@ class ACSVParser: public Test {
     public:
         CSVParser csv_parser;
 
-    void SetUp() override {
+    virtual void SetUp() {
         csv_parser.load("../csv/sample.csv");
     }
 };

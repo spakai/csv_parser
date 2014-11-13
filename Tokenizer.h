@@ -9,6 +9,7 @@
 #else
 #include <sstream>
 #endif
+#include <stdexcept>
 
 using namespace std;
 
