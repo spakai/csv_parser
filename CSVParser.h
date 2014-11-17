@@ -5,13 +5,15 @@
 #include <exception>
 #include <stdexcept>
 
+#include "GetLineTokenizer.h"
+
 using namespace std;
 
 class CSVParser {
 
     public:
-        CSVParser() {};
-        ~CSVParser();
+        CSVParser(Tokenizer & tokenizer);
+        ~CSVParser() {};
         void load(const string& file);
         string readLine(const int lineNumber);
         int getNoOfRows();
@@ -22,6 +24,7 @@ class CSVParser {
 
     private:
         ifstream csv_file; 
+        Tokenizer & tokenizer;
         int cols_;
         int rows_;
 };

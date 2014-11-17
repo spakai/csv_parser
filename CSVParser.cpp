@@ -1,9 +1,10 @@
 #include "CSVParser.h"
 #include "Tokenizer.h"
 
-CSVParser::~CSVParser() {
-    csv_file.clear();
-    csv_file.close();
+
+CSVParser::CSVParser(Tokenizer & tokenizer) 
+    :tokenizer(tokenizer)
+{
 }
 
 int CSVParser::rows() const {
@@ -65,12 +66,12 @@ int CSVParser::getNoOfRows() {
 
 int CSVParser::getNoOfCols() {
     string rowstr = readLine(1);
-    Tokenizer tok(rowstr);
-    return tok.size();
+    tokenizer.tokenize(rowstr);
+    return tokenizer.size();
 }
 
 string CSVParser::getValue(int row, int col) {
     string rowstr = readLine(row);
-    Tokenizer tok(rowstr);
-    return tok[col];
+    tokenizer.tokenize(rowstr);
+    return tokenizer[col];
 }
