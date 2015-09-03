@@ -4,14 +4,12 @@ A popular way of input data is by storing it in a comma separated format.
 It will be convenient if a class can use a csv parser via object composition. 
 The CSV parser will be iterator based to minimize the implementation being exposed to the classes using it.
 
-	For example I should be able to do this
-
 ```cpp 
         void main() {
 		    FileTable fileTable;
             PrimaryTreeIndex index;
 		    fileTable.init("sample.csv");
-            index.buildIndex(filetable, 0 2);
+            index.buildIndex(filetable, 0, 2);
             
         }
 
