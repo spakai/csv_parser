@@ -22,11 +22,11 @@ void FileTable::init(const std::string& filename) {
     }
 }
 
-int FileTable::getNumberOfRows() override {
+int FileTable::getNumberOfRows() {
 	return offsets.size();
 }
 
-std::vector<std::string> FileTable::getRow(int index) override {
+std::vector<std::string> FileTable::getRow(int index) {
     if(index < 0 || index > getNumberOfRows() - 1) { 
         throw std::out_of_range("index out of range");
     }

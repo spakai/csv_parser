@@ -9,13 +9,10 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(sources 
    main.cpp
-   CSVParser.cpp
-   Tokenizer.cpp
-   GetLineTokenizer.cpp)
+   FileTable.cpp)
 
 set(test_sources
-   CSVParserTest.cpp
-   GetLineTokenizerTest.cpp)
+   FileTableTest.cpp)
 
 add_executable(test ${test_sources} ${sources})
 
