@@ -1,12 +1,14 @@
 ## Motivation
 
-
-A lot of input is stored in a comma separated format inside a file. It will be convenient if any class can use a csv parser via object composition. the CSV parser will be iterator based to minimize the implementation exposed to the classes using it.
+A popular way of input data is by storing it in a comma separated format.
+It will be convenient if a class can use a csv parser via object composition. 
+The CSV parser will be iterator based to minimize the implementation being exposed to the classes using it.
 
 	For example I should be able to do this
-
+```cpp 
 		FileTable fileTable;
-		fileTable.init("sample.csv"); // here possible issues are checked - duplicates,empty line,invalid number of values
+        // here possible issues are checked - duplicates,empty line,invalid number of values
+		fileTable.init("sample.csv");
 
 		void buildIndex(Table & table,int columnToBeIndexed, int columnToBeLookedUp) {
 			for(tokens : table) {
@@ -14,3 +16,13 @@ A lot of input is stored in a comma separated format inside a file. It will be c
 			}
 
 		}
+```
+
+## Code design
+
+The base class Table has the implementations of iterator functions. It requires two abstract classes to be implemented 
+```cpp
+    int getNumberOfRows() {
+
+    std::vector<std::string> getRow(int index)
+```
