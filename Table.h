@@ -11,6 +11,7 @@ class Table {
         virtual std::vector<std::string> getRow(int index)=0;
         Table() {};
         virtual ~Table() {};
+
     class Iterator {
         public:
             Iterator(Table *table) : table(table), index(0), eof(false) {}
@@ -53,9 +54,4 @@ class Table {
         Iterator end() {
             return Iterator();
         }
-
-    protected:
-        std::ifstream csv_file;
-        std::vector<int> offsets;
-        std::vector<int> lengths;
 };

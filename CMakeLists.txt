@@ -9,6 +9,7 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(sources 
    main.cpp
+   Table.h
    FileTable.cpp)
 
 set(test_sources
