@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 #include <stdexcept>
 
 class Table {
@@ -16,9 +17,9 @@ class Table {
             Iterator(Table *table) : table(table), index(0), eof(false) {}
             Iterator() : eof(true) {}
             Iterator& operator++() {
-                ++index;
+                ++index;   
                 if(index == table->getNumberOfRows()) {
-                    eof = true;
+                    eof = true;    
                 }
                 return (*this);
             }
@@ -27,7 +28,7 @@ class Table {
                 ++(*this);
                 return (tmp);
             }
-
+            
             std::vector<std::string> operator*() {
                 return table->getRow(index);
             }

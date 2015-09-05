@@ -1,27 +1,23 @@
 #include "FileTable.h"
 
 void FileTable::init(const std::string& filename) {
-    csv_file = new std::ifstream(filename);
-    init(csv_file);
-}
+    csv_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);	
+    csv_file.open(filename);
 
-void FileTable::init(std::istream *stream) {
-    csv_file = stream;
-    csv_file->exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try {
         int offset {0};
-        std::string line;
+        std::string line; 
         while(true) {
-            getline(*csv_file, line);
+            getline(csv_file, line);
             offsets.push_back(offset);
             offset += line.length() + 1;
             lengths.push_back(line.length());
-        }
+        } 
     } catch (...) {
-        if (!csv_file->eof()) {
+        if (!csv_file.eof()) {
             throw;
         } else {
-            csv_file->clear();
+            csv_file.clear();			
         }
     }
 }
@@ -31,13 +27,13 @@ int FileTable::getNumberOfRows() {
 }
 
 std::vector<std::string> FileTable::getRow(int index) {
-    if(index < 0 || index > getNumberOfRows() - 1) {
+    if(index < 0 || index > getNumberOfRows() - 1) { 
         throw std::out_of_range("index out of range");
     }
 
-    csv_file->seekg(offsets[index], std::ios_base::beg);
+    csv_file.seekg(offsets[index], std::ios_base::beg);
     char * buffer = new char[lengths[index]];
-    csv_file->read(buffer, lengths[index]);
+    csv_file.read(buffer, lengths[index]);
     std::string currentLine;
     currentLine.assign(buffer,lengths[index]);
     delete[] buffer;
@@ -50,13 +46,7 @@ std::vector<std::string> FileTable::tokenize(const std::string& csvrow, const ch
     while (!ss.eof()) {
         std::string str;
         getline(ss, str, delim);
-        tokens.push_back(str);
+        tokens.push_back(str); 
     }
    return tokens;
-}
-
-FileTable::~FileTable() {
-  if(csv_file) {
-    //delete csv_file;
-  }
 }
