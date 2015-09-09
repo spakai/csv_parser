@@ -7,7 +7,7 @@ using namespace testing;
 
 class HelperTest : public Test {
     public:
-	    Helper<std::string> helper;
+	    Helper helper;
 };
 
 TEST_F(HelperTest,DuplicateLine) {
@@ -19,4 +19,9 @@ TEST_F(HelperTest,DuplicateLine) {
 TEST_F(HelperTest,NoDuplicateLine) {
     std::string s("XYZ");
     helper.checkDuplicate(s);
+}
+
+TEST_F(HelperTest,EmptyLine) {
+    std::string s("");
+    ASSERT_THROW(helper.checkEmpty(s), EmptyLineException);
 }
