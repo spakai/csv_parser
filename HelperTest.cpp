@@ -25,3 +25,7 @@ TEST_F(HelperTest,EmptyLine) {
     std::string s("");
     ASSERT_THROW(helper.checkEmpty(s), EmptyLineException);
 }
+TEST_F(HelperTest,InvalidNumberOfColumns) {
+    std::string s("1,2,3");
+    ASSERT_THROW(helper.checkIfInvalidNumberOfColumns(s,',',2), InvalidNumberOfColumns);
+}
