@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Table.h"
+#include "Helper.h"
 #include <sstream>
 
 class FileTable : public Table{
@@ -8,7 +9,6 @@ class FileTable : public Table{
         FileTable() {};
         ~FileTable() {};
         void init(const std::string& filename);
-        void init(std::ifstream); 
         std::vector<std::string> tokenize(const std::string& csvrow, char delim);
         int getNumberOfRows() override;
         std::vector<std::string> getRow(int index) override;

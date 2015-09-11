@@ -1,51 +1,28 @@
+#pragma once
+
 #include <set>
+#include <algorithm>
 #include <exception>
-
-class DuplicateException: public std::exception
-{
-  public:
-    virtual const char* what() const throw()
-    {
-      return "Duplicate line detected";
-    }
-} dupEx;
-
-class EmptyLineException: public std::exception
-{
-  public:
-    virtual const char* what() const throw()
-    {
-      return "Empty line detected";
-    }
-} emptyEx;
-
-class InvalidNumberOfColumns: public std::exception
-{
-  public:
-    virtual const char* what() const throw()
-    {
-      return "Invalid number of columns detected";
-    }
-} invEx;
+#include "HelperException.h"
 
 class Helper {
   public:
     void checkDuplicate(const std::string & input) {
         if(!aSet.insert(input).second) {
-          throw dupEx;
+          throw DuplicateException();
         }
     }
 
     void checkEmpty(const std::string & input) {
         if(input.empty()) {
-          throw emptyEx;
+          throw EmptyLineException();
         }
     }
 
     void checkIfInvalidNumberOfColumns(const std::string & input, char delim, unsigned int expectedNumberOfCols) {
         size_t n = std::count(input.begin(), input.end(), delim);
         if(static_cast<unsigned int>(n) != expectedNumberOfCols - 1) {
-            throw invEx;
+            throw InvalidNumberOfColumns();
         }
     }
 private:

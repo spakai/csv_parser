@@ -1,18 +1,31 @@
 #include "FileTable.h"
+#include <iostream>
 
 void FileTable::init(const std::string& filename) {
     csv_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    csv_file.open(filename);
+    Helper helper;
+    int lineNumber {0};
 
     try {
+        csv_file.open(filename);
         int offset {0};
         std::string line;
         while(true) {
             getline(csv_file, line);
+            lineNumber++;
+            helper.checkEmpty(line);
+            helper.checkIfInvalidNumberOfColumns(line,',',5);
+            helper.checkDuplicate(line);
             offsets.push_back(offset);
             offset += line.length() + 1;
             lengths.push_back(line.length());
         }
+    } catch (const EmptyLineException & e) {
+        throw ;
+    } catch (const InvalidNumberOfColumns & e) {
+        throw;
+    } catch (const DuplicateException & e) {
+        throw;
     } catch (...) {
         if (!csv_file.eof()) {
             throw;
