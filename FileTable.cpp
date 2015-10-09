@@ -1,7 +1,8 @@
 #include "FileTable.h"
+#include "FileTableException.h"
 #include <iostream>
 
-void FileTable::init(const std::string& filename) {
+void FileTable::init(const std::string& filename, int numberOfColumns) {
     csv_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     Helper helper;
     int lineNumber {0};
@@ -14,18 +15,21 @@ void FileTable::init(const std::string& filename) {
             getline(csv_file, line);
             lineNumber++;
             helper.checkEmpty(line);
-            helper.checkIfInvalidNumberOfColumns(line,',',5);
+            helper.checkIfInvalidNumberOfColumns(line,',',numberOfColumns);
             helper.checkDuplicate(line);
             offsets.push_back(offset);
             offset += line.length() + 1;
             lengths.push_back(line.length());
         }
     } catch (const EmptyLineException & e) {
-        throw ;
+        std::string msg=std::string(e.what()) + " detected at line number " + std::to_string(lineNumber);
+        throw FileTableException(msg.c_str());
     } catch (const InvalidNumberOfColumns & e) {
-        throw;
+        std::string msg=std::string(e.what()) + " detected at line number " + std::to_string(lineNumber);
+        throw FileTableException(msg.c_str());
     } catch (const DuplicateException & e) {
-        throw;
+        std::string msg=std::string(e.what()) + " detected at line number " + std::to_string(lineNumber);
+        throw FileTableException(msg.c_str());
     } catch (...) {
         if (!csv_file.eof()) {
             throw;
@@ -44,12 +48,10 @@ std::vector<std::string> FileTable::getRow(int index) {
         throw std::out_of_range("index out of range");
     }
 
-    csv_file.seekg(offsets[index], std::ios_base::beg);
-    char * buffer = new char[lengths[index]];
-    csv_file.read(buffer, lengths[index]);
     std::string currentLine;
-    currentLine.assign(buffer,lengths[index]);
-    delete[] buffer;
+    csv_file.seekg(offsets[index], std::ios_base::beg);
+    currentLine.resize(lengths[index]);
+    csv_file.read(&currentLine[0], lengths[index]);
     return tokenize(currentLine,',');
 }
 

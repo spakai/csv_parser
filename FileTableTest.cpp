@@ -1,5 +1,5 @@
-#include "gmock/gmock.h" 
-#include <string> 
+#include "gmock/gmock.h"
+#include <string>
 
 #include "FileTable.h"
 
@@ -10,7 +10,7 @@ class FileTableTest : public Test {
 	    FileTable ft;
 
 	    void SetUp() override {
-		    ft.init("../csv/sample.csv");
+		    ft.init("../csv/sample.csv", 5);
 	    }
 };
 
@@ -21,8 +21,16 @@ TEST_F(FileTableTest,OffsetsAndLengths) {
 TEST_F(FileTableTest, Iterator_ReadTillLastRowUsingForRange) {
     std::vector<std::string> tokens;
     for(auto currentRow : ft) {
-        tokens = currentRow; 
-    } 
+        tokens = currentRow;
+    }
 
     ASSERT_THAT(tokens[0],Eq("12"));
+}
+
+TEST_F(FileTableTest, Iterator_ReadTillLastRowUsingForBeginEnd) {
+    std::vector<std::string> tokens;
+    for(auto currentRow=ft.begin(); currentRow != ft.end() ; currentRow++) {
+        tokens = *currentRow;
+      }
+    ASSERT_THAT(tokens[0], Eq("12"));
 }

@@ -1,16 +1,15 @@
 ## Motivation
 
 A popular way of input data is by storing it in a comma separated format.
-It will be convenient if a class can use a csv parser via object composition. 
+It will be convenient if a class can use a csv parser via object composition.
 The CSV parser will be iterator based to minimize the implementation being exposed to the classes using it.
 
-```cpp 
+```cpp
         void main() {
-		    FileTable fileTable;
+		        FileTable fileTable;
             PrimaryTreeIndex index;
-		    fileTable.init("sample.csv");
-            index.buildIndex(filetable, 0, 2);
-            
+		          fileTable.init("sample.csv");
+              index.buildIndex(filetable, 0, 2);
         }
 
         class X {
@@ -26,7 +25,7 @@ The CSV parser will be iterator based to minimize the implementation being expos
 ## Code design
 
 The base class Table covers the implementations of an iterator by overloading the C++ operators.
-It does require two abstract classes to be implemented 
+It does require two abstract class functions to be implemented
 
 ```cpp
     int getNumberOfRows() {
