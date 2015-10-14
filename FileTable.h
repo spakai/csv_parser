@@ -2,6 +2,7 @@
 
 #include "Table.h"
 #include "Helper.h"
+#include "FileTableException.h"
 #include <sstream>
 
 class FileTable : public Table{

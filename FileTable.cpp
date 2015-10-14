@@ -1,5 +1,4 @@
 #include "FileTable.h"
-#include "FileTableException.h"
 #include <iostream>
 
 void FileTable::init(const std::string& filename, int numberOfColumns) {
@@ -21,18 +20,12 @@ void FileTable::init(const std::string& filename, int numberOfColumns) {
             offset += line.length() + 1;
             lengths.push_back(line.length());
         }
-    } catch (const EmptyLineException & e) {
+    } catch (const HelperException & e) {
         std::string msg=std::string(e.what()) + " detected at line number " + std::to_string(lineNumber);
         throw FileTableException(msg.c_str());
-    } catch (const InvalidNumberOfColumns & e) {
-        std::string msg=std::string(e.what()) + " detected at line number " + std::to_string(lineNumber);
-        throw FileTableException(msg.c_str());
-    } catch (const DuplicateException & e) {
-        std::string msg=std::string(e.what()) + " detected at line number " + std::to_string(lineNumber);
-        throw FileTableException(msg.c_str());
-    } catch (...) {
+    } catch (const std::exception & e) {
         if (!csv_file.eof()) {
-            throw;
+            throw FileTableException(e.what());
         } else {
             csv_file.clear();
         }

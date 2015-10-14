@@ -1,30 +1,29 @@
 #pragma once
 #include <exception>
 
-class DuplicateException: public std::exception
-{
-  public:
-    virtual const char* what() const throw()
-    {
-      return "Duplicate line detected";
-    }
+class HelperException: public std::exception {
+    public:
+        HelperException(const char* msg) : mMsg(msg) {}
+        virtual ~HelperException() throw() {}
+        const char* what() const throw()  {return mMsg.c_str();}
+    protected:
+        std::string mMsg;
 };
 
-class EmptyLineException: public std::exception
+class DuplicateException: public HelperException
 {
   public:
-    virtual const char* what() const throw()
-    {
-      return "Empty line detected";
-    }
+		DuplicateException() : HelperException("Duplicate line detected") {};
 };
 
-class InvalidNumberOfColumns: public std::exception
+class EmptyLineException: public HelperException
+{
+	public:
+		EmptyLineException() : HelperException("Empty line detected") {};
+};
+
+class InvalidNumberOfColumns: public HelperException
 {
   public:
-    virtual const char* what() const throw()
-    {
-      return "Invalid number of columns detected";
-    }
+		InvalidNumberOfColumns() : HelperException("Invalid number of columns detected") {};
 };
-

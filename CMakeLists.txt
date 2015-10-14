@@ -15,7 +15,8 @@ set(sources
 
 set(test_sources
    FileTableTest.cpp
-   HelperTest.cpp)
+   HelperTest.cpp
+   FileTableExceptionTest.cpp)
 
 add_executable(test ${test_sources} ${sources})
 
